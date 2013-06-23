@@ -89,9 +89,7 @@ Assignments, Declarations, Functions (Named, Expression, Constructor)
 
 Use a single variable statement, put all variables at the beginning of the scope, right after your `'use strict';` statement, plain variable declarations first then variables with assignments.
 
-Always use literals to create new Arrays, Objects and Strings. Prefer literal RegEx to new Regexp;
-
-
+Always use literals to create new Arrays or Objects. Prefer regular expression literal`/test/.test('testable')` to new Regexp();
 
 ```javascript
 'use strict';
