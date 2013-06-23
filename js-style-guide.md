@@ -1,39 +1,119 @@
 # JS Style Guide
 
-Lots of this is from idiomatic [idiomatic][1]
+Lots of this is from [idiomatic][1].
 
-1. [Whitespace](#whitespace)
-* [Syntax](#syntax)
-* [Type checking](#type-checking)
-* [Conditional Evaluation](#conditional-evaluation)
-* [Practical Style](#practical-style)
-* [Naming](#naming)
-* [Misc](#misc)
-* [Native and Host Objects](#native-and-host-objects)
-* [Comments](#comments)
-* [One Language Code](#one-language-code)
+* Whitespace
+* Syntax
+* Type checking
+* Conditional Evaluation
+* Practical Style
+* Naming
+* Misc
+* Comments
 
 ## Whitespace
 
-    * indent with spaces
-    * indent size is 4 space
-    * never mix spaces and tabs
+* indent with 4 spaces, no tabs
+* never mix spaces and tabs
+* add a blank line
+    * between methods
+    * between local variables in a method and it's first statement
+    * before controls statements (if, for, while)
+    * before a comment
+
+
+```javascript
+function money() {
+    //...
+}
+
+function moreMoney () {
+    var i,
+        len = 10,
+        localA = true;
+
+    for (; i < len; i ++) {
+        work();
+        
+        if (localA) {
+            workHarder();
+
+            if (!localA) {
+                shirk();
+            }
+        }
+    }
+
+    // comment on line above, never end of line
+    money();
+
+    // blank line before comment
+    moreMoney();
+}
+```
 
 ## Syntax
 
-
-### Parens, Braces and Linebreaks
-
-Always include a blank line above if statements and comments
+Parens, Braces and Linebreaks
 
 ```javascript
+// if/else/for/while/try always have spaces, braces and span multiple lines
 
-// we are doing stuff
-doStuff();
+// BAD
+if(true) execute();
 
-if (condition) {
-    doOtherStuff();
+while(condition) iterate();
+
+for(var i=0; i < a.length; i++) iterate(a[i]);
+
+// GOOD
+if (true) {
+    // ...
 }
+
+for (var i=0, len=100; len < i; i++) {
+    // ...
+}
+
+// better
+var i = 0,
+    len = 100;
+
+for (; i < len; i++) {
+    // ...
+}
+```
+
+Assignments, Declarations, Functions ( Named, Expression, Constructor )
+
+```javascript
+// Variables
+// use single var statement
+// put at the beginning of scope
+var a,          // unassigned vars first
+    b = 0,
+    c = [],     // use literals for array and object
+    d = {};     // never use new Array()
+
+// --or--
+
+var
+a,
+b = 0,
+c = [],
+d = {};
+
+// Function declarations
+// after var statements
+// blank line after vars and before functions
+(function () {
+    var a = 3;
+
+    function foo () {
+        // ...
+    }
+}());
+
 ```
 
 ## Type Checking
