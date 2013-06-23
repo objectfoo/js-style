@@ -13,6 +13,8 @@ Lots of this is from [idiomatic][1].
 
 ## Whitespace
 
+Whitespace is your friend, use it to make code readable. Treat functions and control blocks like paragraphs, give them space to promote readability.
+
 * indent with 4 spaces, no tabs
 * never mix spaces and tabs
 * add a blank line
@@ -33,7 +35,7 @@ function moreMoney () {
     len = 10,
     localA = true;
 
-    for (; i < len; i ++) {
+    for (; i < len; i++) {
         work();
         
         if (localA) {
@@ -65,14 +67,14 @@ if(true) execute();
 
 while(condition) iterate();
 
-for(var i=0; i < a.length; i++) iterate(a[i]);
+for(var i = 0; i < a.length; i++) iterate(a[i]);
 
 // GOOD
 if (true) {
     // ...
 }
 
-for (var i=0, len=100; len < i; i++) {
+for (var i = 0, len = 100; len < i; i++) {
     // ...
 }
 
@@ -91,10 +93,13 @@ Assignments, Declarations, Functions ( Named, Expression, Constructor )
 // Variables
 // use single var statement
 // put at the beginning of scope
-var x, y, z,    // unassigned vars first
+// unassigned vars first
+var x, y, z,
     a = 0,
-    b = [],     // use literals for array and object
-    c = {};     // never use new Array()
+    // use literals for array and object
+    b = [],
+    // never use new Array() or new Object()
+    c = {};
 
 // --or--
 
@@ -111,7 +116,6 @@ var a = 3;
 function foo () {
     // ...
 }
-
 ```
 
 ## Modules
