@@ -23,14 +23,15 @@ Lots of this is from [idiomatic][1].
 
 
 ```javascript
+
 function money() {
     //...
 }
 
 function moreMoney () {
     var i,
-        len = 10,
-        localA = true;
+    len = 10,
+    localA = true;
 
     for (; i < len; i ++) {
         work();
@@ -90,30 +91,70 @@ Assignments, Declarations, Functions ( Named, Expression, Constructor )
 // Variables
 // use single var statement
 // put at the beginning of scope
-var a,          // unassigned vars first
-    b = 0,
-    c = [],     // use literals for array and object
-    d = {};     // never use new Array()
+var x, y, z,    // unassigned vars first
+    a = 0,
+    b = [],     // use literals for array and object
+    c = {};     // never use new Array()
 
 // --or--
 
-var
-a,
-b = 0,
-c = [],
-d = {};
+var x, y, z,
+a = 0,
+b = [],
+c = {};
 
 // Function declarations
 // after var statements
 // blank line after vars and before functions
-(function () {
-    var a = 3;
+var a = 3;
 
-    function foo () {
-        // ...
-    }
-}());
+function foo () {
+    // ...
+}
 
+```
+
+## Modules
+
+Augmenting an existing namespace object.
+
+```javascript
+var WebMD = (function (document, WebMD, undefined) {
+    'use strict';
+
+    var privateObject = null;
+
+    // module setup...
+
+    // api
+    WebMD.module = {
+        publicValue: 47,
+        publicMethod: function () {
+            // ...
+        }
+    };
+
+    return WebMD;
+}(document, WebMD || {}));
+```
+
+Creating a public module object.
+
+```javascript
+var theModule = (function (document, undefined) {
+    'use strict';
+
+    var private = true;
+
+    // module setup ...
+
+    // api
+    return {
+        method: function () {
+            // ...
+        }
+    };
+}(document));
 ```
 
 ## Type Checking
