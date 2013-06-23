@@ -18,6 +18,8 @@ Whitespace is your friend, use it to make code readable. Treat functions and con
     * before controls statements (if, for, while)
     * before a comment
 
+Put comments above never at the end of a line.
+
 
 ```javascript
 
@@ -52,10 +54,11 @@ function moreMoney () {
 
 ## Syntax
 
-Parens, Braces and Linebreaks
+Parens, Braces and Linebreaks.
+
+if, else, for while and try block always have spaces, braces and span multiple lines.
 
 ```javascript
-// if/else/for/while/try always have spaces, braces and span multiple lines
 
 // BAD
 if(true) execute();
@@ -82,13 +85,16 @@ for (; i < len; i++) {
 }
 ```
 
-Assignments, Declarations, Functions ( Named, Expression, Constructor )
+Assignments, Declarations, Functions (Named, Expression, Constructor)
+
+Use a single variable statement, put all variables at the beginning of the scope, right after your `'use strict';` statement, plain variable declarations first then variables with assignments.
+
+Always use literals to create new Arrays, Objects and Strings. Prefer literal RegEx to new Regexp;
+
+
 
 ```javascript
-// Variables
-// use single var statement
-// put at the beginning of scope
-// unassigned vars first
+'use strict';
 var x, y, z,
     a = 0,
     // use literals for array and object
@@ -102,10 +108,11 @@ var x, y, z,
 a = 0,
 b = [],
 c = {};
+```
 
-// Function declarations
-// after var statements
-// blank line after vars and before functions
+Include a blank line between variable assignments and other statements.
+
+```javascript
 var a = 3;
 
 function foo () {
@@ -115,7 +122,7 @@ function foo () {
 
 ## Modules
 
-Augmenting an existing namespace object.
+Augmenting an existing name space object or module.
 
 ```javascript
 var WebMD = (function (document, WebMD, undefined) {
@@ -137,12 +144,11 @@ var WebMD = (function (document, WebMD, undefined) {
 }(document, WebMD || {}));
 ```
 
-Creating a public module object.
+Creating a standalone module.
 
 ```javascript
 var theModule = (function (document, undefined) {
     'use strict';
-
     var private = true;
 
     // module setup ...
@@ -154,6 +160,34 @@ var theModule = (function (document, undefined) {
         }
     };
 }(document));
+```
+
+Making a module testable.
+
+We use QUnit, so if QUnit is defined then we probably don't want to run our normal initialization function.
+
+```javascript
+var theModule = (function (document, my, QUnit, undefined) {
+    'use strict';
+    var helper = function () {
+        // be helpful
+    },
+
+    initalize = function () {
+        // initalize
+    };
+
+    if (!QUnit) {
+        // init as normal if no QUnit
+        initialize();
+    } else {
+        // expose normally private functions for testing
+        my.helper = helper;
+        my.initialize = initialize;
+    }
+
+    return my;
+}(document, theModule || {}, QUnit));
 ```
 
 ## References
