@@ -2,14 +2,9 @@
 
 Lots of this is from [idiomatic][1].
 
-* Whitespace
-* Syntax
-* Type checking
-* Conditional Evaluation
-* Practical Style
-* Naming
-* Misc
-* Comments
+* [Whitespace](#whitespace)
+* [Syntax](#syntax)
+* [Modules](modules)
 
 ## Whitespace
 
