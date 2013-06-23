@@ -157,34 +157,6 @@ var theModule = (function (document, undefined) {
 }(document));
 ```
 
-## Type Checking
-
-
-
-## Conditional Evaluation
-
-
-
-## Practical Style
-
-
-
-## Naming
-
-
-
-## Misc
-
-
-
-## Native &amp; Host Object
-
-
-
-## One Language Code
-
-
-
 ## References
 
 [1]: https://github.com/rwldrn/idiomatic.js
