@@ -32,18 +32,18 @@ Put comments above never at the end of a line.
 function money() {
     //...
 }
-
+                                    // <- blank line before functions
 function moreMoney () {
     var i,
     len = 10,
     localA = true;
-
+                                    // <- blank line before control statement
     for (; i < len; i++) {
         work();
-        
+                                    // <- blank line again
         if (localA) {
             workHarder();
-
+                                    // <- ...
             if (!localA) {
                 shirk();
             }
@@ -71,7 +71,7 @@ if(true) execute();
 
 while(condition) iterate();
 
-for(var i = 0; i < a.length; i++) iterate(a[i]);
+for(var i = 0; i < a.length; i++) process(a[i]);
 
 // GOOD
 if (true) {
