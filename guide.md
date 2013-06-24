@@ -1,11 +1,14 @@
-# JS Style Guide
 
-* [Whitespace](#whitespace)
-* [Syntax](#syntax)
-* [Code quality](#code-quality)
-* [Variables](#variables)
-* [Modules](#modules)
+* [Style](#style)
+    * [Whitespace](#whitespace)
+    * [Syntax](#syntax)
+* [Best Practices](#best-practices)
+    * [Code quality](#code-quality)
+    * [Variables](#variables)
+    * [Modules](#modules)
 
+
+# Style
 
 ## Whitespace
 
@@ -112,6 +115,7 @@ function foo () {
 }
 ```
 
+# Best practices
 
 ## Code quality
 

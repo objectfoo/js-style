@@ -1,4 +1,4 @@
-# Javascript style guide
+# Javascript guide
 
 Start of a JS Style and Best Practices Guide.
 
