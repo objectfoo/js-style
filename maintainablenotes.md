@@ -47,7 +47,7 @@
   * put a single space before and after parenthesis in function declaration
   * put a single space after between parameters in function declaration
   * no spaces between name and parenthesis when calling a function
-  * prefer full paren wrap on IEFE `(function () {}());`
+  * prefer full parenthesis wrap on IEFE `(function () {}());`
 
 * Strict Mode
   * 'use strict'; please

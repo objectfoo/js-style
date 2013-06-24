@@ -4,7 +4,10 @@ Lots of this is from [idiomatic][1].
 
 * [Whitespace](#whitespace)
 * [Syntax](#syntax)
-* [Modules](modules)
+* [Code quality](#code quality)
+* [Variables](#variables)
+* [Modules](#modules)
+
 
 ## Whitespace
 
@@ -119,10 +122,88 @@ function foo () {
 ```
 
 
-## References
+## Code quality
 
-[1]: https://github.com/rwldrn/idiomatic.js
-[2]: http://contribute.jquery.org/style-guide/js/
-[3]: http://dojotoolkit.org/community/styleGuide
-[4]: http://javascript.crockford.com/code.html
+Use strict mode for as much new code as possible and make sure your code passes [JsHint](http://www.jshint.com/), if it doesn't pass, and you must go against a hint, add the appropriate [JsHint option](#enforcing_options) to make it pass.
 
+```javascript
+(function ($) {
+    if ($) {
+        alert('jQuery Loaded');
+    }
+}(jQuery)); // JsHint: 
+```
+
+## Variables
+
+Use a single variable statement at the beginning of a scope. Organize variables with declarations first, declarations with assignments second. Avoid meaningless variable names, function names should begin with a verb and variable names should begin with a noun.
+
+## Modules
+
+Augmenting an existing name space object or module.
+
+```javascript
+var WebMD = (function (document, WebMD, undefined) {
+    'use strict';
+
+    var privateObject = null;
+
+    // module setup...
+
+    // api
+    WebMD.module = {
+        publicValue: 47,
+        publicMethod: function () {
+            // ...
+        }
+    };
+
+    return WebMD;
+}(document, WebMD || {}));
+```
+
+Creating a standalone module.
+
+```javascript
+var theModule = (function (document, undefined) {
+    'use strict';
+    var private = true;
+
+    // module setup ...
+
+    // api
+    return {
+        method: function () {
+            // ...
+        }
+    };
+}(document));
+```
+
+Making a module testable.
+
+We use QUnit, so if QUnit is defined then we probably don't want to run our normal initialization function.
+
+```javascript
+var theModule = (function (document, my, QUnit, undefined) {
+    'use strict';
+    var helper = function () {
+        // be helpful
+    },
+
+    initialize = function () {
+        // initialize
+    };
+
+    if (!QUnit) {
+        // initialize as normal if no QUnit
+        initialize();
+    } else {
+        // expose normally private functions for testing
+        my.helper = helper;
+        my.initialize = initialize;
+    }
+
+    return my;
+}(document, theModule || {}, QUnit));
+```
