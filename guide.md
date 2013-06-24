@@ -8,6 +8,7 @@
     * [Variables](#variables)
     * [Modules](#modules)
 
+---
 
 ## Style
 
@@ -115,6 +116,8 @@ function foo () {
     // ...
 }
 ```
+
+---
 
 ## Best practices
 
