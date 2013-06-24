@@ -1,7 +1,5 @@
 # JS Style Guide
 
-Lots of this is from [idiomatic][1].
-
 * [Whitespace](#whitespace)
 * [Syntax](#syntax)
 * [Code quality](#code-quality)
