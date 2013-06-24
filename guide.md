@@ -57,7 +57,7 @@ function moreMoney () {
 
 ## Syntax
 
-Parens, Braces and Linebreaks.
+Parenthesis, Braces and Line-breaks.
 
 if, else, for while and try block always have spaces, braces and span multiple lines.
 
@@ -127,11 +127,20 @@ function foo () {
 Use strict mode for as much new code as possible and make sure your code passes [JsHint](http://www.jshint.com/), if it doesn't pass, and you must go against a hint, add the appropriate [JsHint option](#enforcing_options) to make it pass.
 
 ```javascript
+/*global jQuery*/
 (function ($) {
-    if ($) {
-        alert('jQuery Loaded');
+    'use strict';
+    var module = {
+        prop: false
+    };
+
+    function toggleProp() {
+        /*jshint validthis: true*/  // <-- using 'this' ok for this function
+        this.prop = !!this.prop;    // <-- jshint: possible strict mode violation
     }
-}(jQuery)); // JsHint: 
+
+    toggleProp.apply(module);
+}(jQuery));
 ```
 
 ## Variables
