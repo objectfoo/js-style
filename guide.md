@@ -92,23 +92,16 @@ Assignments, Declarations, Functions (Named, Expression, Constructor)
 
 Use a single variable statement, put all variables at the beginning of the scope, right after your `'use strict';` statement, plain variable declarations first then variables with assignments.
 
-Always use literals to create new Arrays or Objects. Prefer regular expression literal`/test/.test('testable')` to new Regexp();
-
 ```javascript
 'use strict';
-var x, y, z,
-    a = 0,
-    // use literals for array and object
-    b = [],
-    // never use new Array() or new Object()
-    c = {};
+var x, y
+    a = 0;
 
 // --or--
 
-var x, y, z,
-a = 0,
-b = [],
-c = {};
+var x, y,
+a = 0;
+
 ```
 
 Include a blank line between variable assignments and other statements.
@@ -145,7 +138,21 @@ Use strict mode for as much new code as possible and make sure your code passes 
 
 ## Variables
 
-Use a single variable statement at the beginning of a scope. Organize variables with declarations first, declarations with assignments second. Avoid meaningless variable names, function names should begin with a verb and variable names should begin with a noun.
+Avoid meaningless variable names, function names should begin with a verb and variable names should begin with a noun.
+
+Always use literals to create new Arrays or Objects. Prefer regular expression literal`/test/.test('testable')` to new Regexp();
+
+```javascript
+// bad
+var foo = false,
+    titles = ['one', 'two'],
+    test = new RegExp('test');
+
+// good
+var isVisible = false,
+    stepNames = ['one', 'two'],
+    reTest = /test/;
+```
 
 ## Modules
 
