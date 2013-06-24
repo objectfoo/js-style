@@ -1,3 +1,4 @@
+# Guide
 
 * [Style](#style)
     * [Whitespace](#whitespace)
@@ -8,9 +9,9 @@
     * [Modules](#modules)
 
 
-# Style
+## Style
 
-## Whitespace
+### Whitespace
 
 Whitespace is your friend, use it to make code readable. Treat functions and control blocks like paragraphs, give them space to promote readability.
 
@@ -56,7 +57,7 @@ function moreMoney () {
 }
 ```
 
-## Syntax
+### Syntax
 
 Parenthesis, Braces and Line-breaks.
 
@@ -115,9 +116,9 @@ function foo () {
 }
 ```
 
-# Best practices
+## Best practices
 
-## Code quality
+### Code quality
 
 Use strict mode for as much new code as possible and make sure your code passes [JsHint](http://www.jshint.com/), if it doesn't pass, and you must go against a hint, add the appropriate [JsHint option](#enforcing_options) to make it pass.
 
@@ -142,7 +143,7 @@ Use strict mode for as much new code as possible and make sure your code passes 
 }(jQuery));
 ```
 
-## Variables
+### Variables
 
 Avoid meaningless variable names, function names should begin with a verb and variable names should begin with a noun.
 
@@ -160,7 +161,7 @@ var isVisible = false,
     reTest = /test/;
 ```
 
-## Modules
+### Modules
 
 Augmenting an existing name space object or module.
 
