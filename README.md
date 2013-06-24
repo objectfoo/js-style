@@ -1,11 +1,11 @@
 # Javascript style guide
 
-Start of a js style and best practices guid.
+Start of a JS Style and Best Practices Guide.
 
 ## References
 
-[1]: https://github.com/rwldrn/idiomatic.js
-[2]: http://contribute.jquery.org/style-guide/js/
-[3]: http://dojotoolkit.org/community/styleGuide
-[4]: http://javascript.crockford.com/code.html
+[Idiomatic Javascript]: https://github.com/rwldrn/idiomatic.js
+[jQuery JavaScript Style Guide]: http://contribute.jquery.org/style-guide/js/
+[dojo Style Guide]: http://dojotoolkit.org/community/styleGuide
+[Crockford Code Conventions]: http://javascript.crockford.com/code.html
 
