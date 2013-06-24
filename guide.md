@@ -166,7 +166,25 @@ var isVisible = false,
 
 ### Modules
 
-Augmenting an existing name space object or module.
+#### Standalone module.
+
+```javascript
+var theModule = (function (document, undefined) {
+    'use strict';
+    var private = true;
+
+    // module setup ...
+
+    // api
+    return {
+        method: function () {
+            // ...
+        }
+    };
+}(document));
+```
+
+#### Augment existing name space or module.
 
 ```javascript
 var WebMD = (function (document, WebMD, undefined) {
@@ -188,25 +206,7 @@ var WebMD = (function (document, WebMD, undefined) {
 }(document, WebMD || {}));
 ```
 
-Creating a standalone module.
-
-```javascript
-var theModule = (function (document, undefined) {
-    'use strict';
-    var private = true;
-
-    // module setup ...
-
-    // api
-    return {
-        method: function () {
-            // ...
-        }
-    };
-}(document));
-```
-
-Making a module testable.
+#### Making a module testable
 
 We use QUnit, so if QUnit is defined then we probably don't want to run our normal initialization function.
 
