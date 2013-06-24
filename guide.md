@@ -4,7 +4,7 @@ Lots of this is from [idiomatic][1].
 
 * [Whitespace](#whitespace)
 * [Syntax](#syntax)
-* [Code quality](#code quality)
+* [Code quality](#code-quality)
 * [Variables](#variables)
 * [Modules](#modules)
 
