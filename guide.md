@@ -126,8 +126,12 @@ Use strict mode for as much new code as possible and make sure your code passes 
     };
 
     function toggleProp() {
-        /*jshint validthis: true*/  // <-- using 'this' ok for this function
-        this.prop = !!this.prop;    // <-- jshint: possible strict mode violation
+
+        // make using 'this' ok for this function
+        /*jshint validthis: true*/
+
+        // so this doesn't cause a JsHint error
+        this.prop = !!this.prop;
     }
 
     toggleProp.apply(module);
