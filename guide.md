@@ -2,6 +2,7 @@
 
 * [Style](#style)
     * [Whitespace](#whitespace)
+    * [Naming](#naming)
     * [Syntax](#syntax)
 * [Best Practices](#best-practices)
     * [Code quality](#code-quality)
@@ -27,8 +28,6 @@ Blank lines
 * before a comment
 
 ```javascript
-
-// Blank lines promote readability
 function money() {
     var truth = true;
 
@@ -39,8 +38,8 @@ function money() {
 
 function moreMoney () {
     var i,
-    len = 10,
-    localA = true;
+        len = 10,
+        localA = true;
 
     for (; i < len; i++) {
         work();
@@ -63,6 +62,12 @@ Put comments above, not at end.
 // comment above
 money();
 
+```
+
+### Naming
+
+```javascript
+...
 ```
 
 ### Syntax
@@ -149,7 +154,23 @@ Use strict mode for new code and make sure your code passes [JsHint](http://www.
 
 ### Variables
 
-Use a single variable statement, put all variables at the beginning of the scope, right after your `'use strict';` statement. Avoid meaningless variable names, function names should begin with a verb and variable names should begin with a noun.
+All variables should be declared before they are used. Use a single `var` statement at the beginning of the scope.
+
+```javascript
+(function () {
+    var count,
+        foo = null,
+        hasQSA = (function() {
+            return 'querySelectorAll' in document;
+        }());
+
+
+    function bar () {
+        //...
+    }
+
+}());
+```
 
 Always use literals to create new Arrays or Objects. Prefer regular expression literal`/test/.test('testable')` to new Regexp();
 
@@ -160,7 +181,6 @@ var foo = false,
     test = new RegExp('test');
 
 // good
-`'use strict';`
 var isVisible = false,
     stepNames = ['one', 'two'],
     reTest = /test/;
