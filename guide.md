@@ -209,7 +209,7 @@ var theModule = (function (document, undefined) {
 #### Augment existing name space or module
 
 ```javascript
-var WebMD = (function (document, WebMD, undefined) {
+window.WebMD = (function (document, WebMD, undefined) {
     'use strict';
 
     var privateObject = null;
@@ -225,7 +225,7 @@ var WebMD = (function (document, WebMD, undefined) {
     };
 
     return WebMD;
-}(document, WebMD || {}));
+}(document, window.WebMD || {}));
 ```
 
 #### Making a module testable
