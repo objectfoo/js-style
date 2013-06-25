@@ -21,10 +21,10 @@ use whitespace to make code readable. Treat functions and control blocks like pa
 
 Blank lines
 
-    * between methods
-    * between local variables in a method and it's first statement
-    * before controls statements (if, for, while)
-    * before a comment
+* between methods
+* between local variables in a method and it's first statement
+* before controls statements (if, for, while)
+* before a comment
 
 ```javascript
 
