@@ -96,10 +96,28 @@ for (; i < len; i++) {
 }
 ```
 
-Assignments, Declarations, Functions (Named, Expression, Constructor)
+Functions (Expression, Named, Constructor)
 
 ```javascript
-// ...
+var foo = function (arg) {
+    // ...
+};
+foo('arg');
+
+function bar(arg) {
+    // ...
+}
+bar('arg');
+
+var foobar;
+
+function FooBar(options) {
+    this.options = options || {};
+}
+foobar = new FooBar({a: 'alpha'});
+
+// {a: 'alpha'}
+foobar.options;
 ```
 ---
 
