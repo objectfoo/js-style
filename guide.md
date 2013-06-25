@@ -15,40 +15,31 @@
 
 ### Whitespace
 
-use whitespace to make code readable. Treat functions and control blocks like paragraphs.
-
 * indent with 4 spaces, no tabs
 * never mix spaces and tabs
 
 Blank lines
 
-* between methods
+* between functions & methods
 * between local variables in a method and it's first statement
 * before controls statements (if, for, while)
 * before a comment
 
 ```javascript
-function money() {
-    var truth = true;
 
-    function foo () {
-        // ...
-    }
-}
-
-function moreMoney () {
+function foo () {
     var i,
         len = 10,
         localA = true;
 
     for (; i < len; i++) {
-        work();
+        alert(len);
 
         if (localA) {
-            workHarder();
+            alert(len + ':' + localA);
 
             if (!localA) {
-                shirk();
+                alert('m(...)m');
             }
         }
     }
@@ -58,16 +49,16 @@ function moreMoney () {
 Put comments above, not at end.
 
 ``` javascript
-
 // comment above
 money();
-
 ```
 
 ### Naming
 
+Constructor functions should be pascal case, regular function and variable names should be camel case. Variable names should begin with a noun, function names should begin with a verb.
+
 ```javascript
-...
+// ...
 ```
 
 ### Syntax
@@ -94,7 +85,7 @@ for (var i = 0, len = array.length; len < i; i++) {
 
 // better
 var i = 0,
-len = array.length;
+    len = array.length;
 
 for (; i < len; i++) {
     // ...
@@ -121,8 +112,8 @@ function FooBar(options) {
 }
 foobar = new FooBar({a: 'alpha'});
 
-// {a: 'alpha'}
 foobar.options;
+// {a: 'alpha'}
 ```
 ---
 
@@ -133,7 +124,7 @@ foobar.options;
 Use strict mode for new code and make sure your code passes [JsHint](http://www.jshint.com/), if it doesn't pass, and you must go against a hint, add the appropriate [JsHint option](http://jshint.com/docs/#enforcing_options) to make it pass.
 
 ```javascript
-// tell JsHint is a valid global variable
+// tell JsHint jQuery is a valid global variable
 /*global jQuery*/
 (function ($) {
     'use strict';
@@ -144,7 +135,7 @@ Use strict mode for new code and make sure your code passes [JsHint](http://www.
     function toggleProp() {
         /*jshint validthis: true*/
 
-        // overlook possible 'this' strict mode violation
+        // tell jshint to ignore 'possible this strict mode violation'
         this.prop = !!this.prop;
     }
 
@@ -154,7 +145,7 @@ Use strict mode for new code and make sure your code passes [JsHint](http://www.
 
 ### Variables
 
-All variables should be declared before they are used. Use a single `var` statement at the beginning of the scope.
+Use a single `var` statement at the beginning of the scope.
 
 ```javascript
 (function () {
@@ -166,24 +157,11 @@ All variables should be declared before they are used. Use a single `var` statem
 
 
     function bar () {
-        //...
+        if (foo === null) {
+            explode();
+        }
     }
-
 }());
-```
-
-Always use literals to create new Arrays or Objects. Prefer regular expression literal`/test/.test('testable')` to new Regexp();
-
-```javascript
-// bad
-var foo = false,
-    title = ['one', 'two'],
-    test = new RegExp('test');
-
-// good
-var isVisible = false,
-    stepNames = ['one', 'two'],
-    reTest = /test/;
 ```
 
 ### Modules
@@ -191,18 +169,12 @@ var isVisible = false,
 #### Standalone module
 
 ```javascript
-var theModule = (function (document, undefined) {
+(function (document, undefined) {
     'use strict';
-    var private = true;
+    var private = true,
+        danceparty = document.getElementById('danceparty');
 
-    // module setup ...
-
-    // api
-    return {
-        method: function () {
-            // ...
-        }
-    };
+    danceparty.className = 'dance-time';
 }(document));
 ```
 
@@ -220,9 +192,11 @@ window.NameSpace = (function (document, NameSpace) {
         count: function () {
             return privateCount;
         },
+
         increment: function () {
             return ++privateCount;
         },
+
         decrement: function () {
             return --privateCount;
         }
@@ -233,17 +207,17 @@ window.NameSpace = (function (document, NameSpace) {
 
 #### Making a module testable
 
-We use QUnit, so if QUnit is defined then we probably don't want to run our normal initialization function.
+We use QUnit, so if QUnit is defined expose normally private methods for testing and optionally don't run our normal initialization method.
 
 ```javascript
-var theModule = (function (document, my, QUnit, undefined) {
+window.theModule = (function (document, theModule, QUnit, undefined) {
     'use strict';
-    var helper = function () {
-        // be helpful
-    },
-
-    initialize = function () {
+    var initialize = function () {
         // initialize
+    };
+
+    theModule.publicMethod = function () {
+        //...
     };
 
     if (!QUnit) {
@@ -251,10 +225,10 @@ var theModule = (function (document, my, QUnit, undefined) {
         initialize();
     } else {
         // expose normally private functions for testing if needed
-        my.helper = helper;
-        my.initialize = initialize;
+        theModule.helper = helper;
+        theModule.initialize = initialize;
     }
 
-    return my;
-}(document, theModule || {}, QUnit));
+    return theModule;
+}(document, window.theModule || {}, QUnit));
 ```
