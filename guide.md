@@ -14,81 +14,82 @@
 
 ### Whitespace
 
-Whitespace is your friend, use it to make code readable. Treat functions and control blocks like paragraphs, give them space to promote readability.
+use whitespace to make code readable. Treat functions and control blocks like paragraphs.
 
 * indent with 4 spaces, no tabs
 * never mix spaces and tabs
-* always include semi-colons
-* add a blank line
+
+Blank lines
+
     * between methods
     * between local variables in a method and it's first statement
     * before controls statements (if, for, while)
     * before a comment
 
-Put comments above, never at the end of a line.
-
 ```javascript
 
-// Blank Lines
+// Blank lines promote readability
 function money() {
     var truth = true;
-                                    // <- after var declarations
+
     function foo () {
         // ...
     }
 }
-                                    // <- before functions declarations
+
 function moreMoney () {
     var i,
     len = 10,
     localA = true;
-                                    // <- before for
+
     for (; i < len; i++) {
         work();
-                                    // <- before if
+
         if (localA) {
             workHarder();
-                                    // <- before every if
+
             if (!localA) {
                 shirk();
             }
         }
     }
-
-                                    // <- before comments
-    // comment on line above, never end of line
-    money();
 }
+```
+
+Put comments above, not at end.
+
+``` javascript
+
+// comment above
+money();
+
 ```
 
 ### Syntax
 
 Parenthesis, Braces and Line-breaks.
 
-if, else, for while and try block always have spaces, braces and span multiple lines.
-
-Place opening parenthesis on same line.
+if, else, for while and try block always have spaces, braces and span multiple lines. Place opening parenthesis on same line. Always include semi-colons.
 
 ```javascript
 
 // BAD
-if(true) execute();
-
-while(condition) iterate();
-
-for(var i = 0; i < a.length; i++) process(a[i]);
+if (true) execute();
+while (condition) iterate();
+for (var i = 0; i < array.length; i++) process(a[i]);
 
 // GOOD
 if (true) {
     // ...
 }
 
-for (var i = 0, len = 100; len < i; i++) {
+for (var i = 0, len = array.length; len < i; i++) {
     // ...
 }
 
 // better
-var i = 0, len = 100;
+var i = 0,
+len = array.length;
 
 for (; i < len; i++) {
     // ...
@@ -97,29 +98,19 @@ for (; i < len; i++) {
 
 Assignments, Declarations, Functions (Named, Expression, Constructor)
 
-Use a single variable statement, put all variables at the beginning of the scope, right after your `'use strict';` statement, plain variable declarations first then variables with assignments.
-
 ```javascript
-'use strict';
-var x, y
-    a = 0;
-
-// --or--
-
-var x, y,
-a = 0;
-
+// ...
 ```
-
 ---
 
 ## Best practices
 
 ### Code quality
 
-Use strict mode for as much new code as possible and make sure your code passes [JsHint](http://www.jshint.com/), if it doesn't pass, and you must go against a hint, add the appropriate [JsHint option](#enforcing_options) to make it pass.
+Use strict mode for new code and make sure your code passes [JsHint](http://www.jshint.com/), if it doesn't pass, and you must go against a hint, add the appropriate [JsHint option](http://jshint.com/docs/#enforcing_options) to make it pass.
 
 ```javascript
+// tell JsHint is a valid global variable
 /*global jQuery*/
 (function ($) {
     'use strict';
@@ -128,11 +119,9 @@ Use strict mode for as much new code as possible and make sure your code passes 
     };
 
     function toggleProp() {
-
-        // make using 'this' ok for this function
         /*jshint validthis: true*/
 
-        // so this doesn't cause a JsHint error
+        // overlook possible 'this' strict mode violation
         this.prop = !!this.prop;
     }
 
@@ -142,7 +131,7 @@ Use strict mode for as much new code as possible and make sure your code passes 
 
 ### Variables
 
-Avoid meaningless variable names, function names should begin with a verb and variable names should begin with a noun.
+Use a single variable statement, put all variables at the beginning of the scope, right after your `'use strict';` statement. Avoid meaningless variable names, function names should begin with a verb and variable names should begin with a noun.
 
 Always use literals to create new Arrays or Objects. Prefer regular expression literal`/test/.test('testable')` to new Regexp();
 
@@ -153,6 +142,7 @@ var foo = false,
     test = new RegExp('test');
 
 // good
+`'use strict';`
 var isVisible = false,
     stepNames = ['one', 'two'],
     reTest = /test/;
