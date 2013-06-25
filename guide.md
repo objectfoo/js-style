@@ -18,43 +18,46 @@ Whitespace is your friend, use it to make code readable. Treat functions and con
 
 * indent with 4 spaces, no tabs
 * never mix spaces and tabs
+* always include semi-colons
 * add a blank line
     * between methods
     * between local variables in a method and it's first statement
     * before controls statements (if, for, while)
     * before a comment
 
-Put comments above never at the end of a line.
-
+Put comments above, never at the end of a line.
 
 ```javascript
 
+// Blank Lines
 function money() {
-    //...
+    var truth = true;
+                                    // <- after var declarations
+    function foo () {
+        // ...
+    }
 }
-                                    // <- blank line before functions
+                                    // <- before functions declarations
 function moreMoney () {
     var i,
     len = 10,
     localA = true;
-                                    // <- blank line before control statement
+                                    // <- before for
     for (; i < len; i++) {
         work();
-                                    // <- blank line again
+                                    // <- before if
         if (localA) {
             workHarder();
-                                    // <- ...
+                                    // <- before every if
             if (!localA) {
                 shirk();
             }
         }
     }
 
+                                    // <- before comments
     // comment on line above, never end of line
     money();
-
-    // blank line before comment
-    moreMoney();
 }
 ```
 
@@ -63,6 +66,8 @@ function moreMoney () {
 Parenthesis, Braces and Line-breaks.
 
 if, else, for while and try block always have spaces, braces and span multiple lines.
+
+Place opening parenthesis on same line.
 
 ```javascript
 
@@ -83,8 +88,7 @@ for (var i = 0, len = 100; len < i; i++) {
 }
 
 // better
-var i = 0,
-    len = 100;
+var i = 0, len = 100;
 
 for (; i < len; i++) {
     // ...
@@ -105,16 +109,6 @@ var x, y
 var x, y,
 a = 0;
 
-```
-
-Include a blank line between variable assignments and other statements.
-
-```javascript
-var a = 3;
-
-function foo () {
-    // ...
-}
 ```
 
 ---
@@ -155,7 +149,7 @@ Always use literals to create new Arrays or Objects. Prefer regular expression l
 ```javascript
 // bad
 var foo = false,
-    titles = ['one', 'two'],
+    title = ['one', 'two'],
     test = new RegExp('test');
 
 // good
@@ -166,7 +160,7 @@ var isVisible = false,
 
 ### Modules
 
-#### Standalone module.
+#### Standalone module
 
 ```javascript
 var theModule = (function (document, undefined) {
@@ -184,7 +178,7 @@ var theModule = (function (document, undefined) {
 }(document));
 ```
 
-#### Augment existing name space or module.
+#### Augment existing name space or module
 
 ```javascript
 var WebMD = (function (document, WebMD, undefined) {
@@ -225,7 +219,7 @@ var theModule = (function (document, my, QUnit, undefined) {
         // initialize as normal if no QUnit
         initialize();
     } else {
-        // expose normally private functions for testing
+        // expose normally private functions for testing if needed
         my.helper = helper;
         my.initialize = initialize;
     }
