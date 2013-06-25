@@ -209,23 +209,26 @@ var theModule = (function (document, undefined) {
 #### Augment existing name space or module
 
 ```javascript
-window.WebMD = (function (document, WebMD, undefined) {
+window.NameSpace = (function (document, NameSpace) {
     'use strict';
 
-    var privateObject = null;
+    // setup
+    var privateCount = 0;
 
-    // module setup...
-
-    // api
-    WebMD.module = {
-        publicValue: 47,
-        publicMethod: function () {
-            // ...
+    // public api
+    NameSpace.counter = {
+        count: function () {
+            return privateCount;
+        },
+        increment: function () {
+            return ++privateCount;
+        },
+        decrement: function () {
+            return --privateCount;
         }
     };
-
-    return WebMD;
-}(document, window.WebMD || {}));
+    return NameSpace;
+}(document, window.NameSpace || {}));
 ```
 
 #### Making a module testable
