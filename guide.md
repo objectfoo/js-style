@@ -2,13 +2,47 @@
 
 This guide borrows heavily from around the net and Nicholas Zakas' book [Maintainable Javascript](http://www.amazon.com/Maintainable-JavaScript-ebook/dp/B0082CXEB0).
 
+* [Code Quality](#code-quality)
+* [Indentation](#indentation)
+* [Statement Termination](#statement-termination)
+* [Line Length](#line-length)
+* [Blank Lines](#blank-lines)
+* [Naming](#naming)
+* [Equality Operators](#equality-operators)
+* [Ternary Operator](#ternary-operator)
+* [Compound Statements](#compound-statements)
+* [White Space](#white-space)
+
+## Code Quality
+
+Use strict mode for all new code and make sure it passes [JsHint](http://jshint.com/). If you must include code that doesn't pass the JsHint check add a [directive](http://jshint.com/docs/#directives) to make it pass.
+
+```javascript
+// tell JsHint jQuery is a valid global variable
+/*global jQuery*/
+(function ($) {
+    'use strict';
+    var module = {
+        prop: false
+    };
+
+    function toggleProp() {
+        /*jshint validthis: true*/
+
+        // tell jshint to ignore 'possible this strict mode violation'
+        this.prop = !this.prop;
+    }
+
+    toggleProp.apply(module);
+}(jQuery));
+```
 ## Indentation
 
 Indent with 4 spaces, do not mix spaces and tabs.
 
 ## Statement Termination
 
-Always include semi-colons, don't rely on Javscript's [automatic semi-colon insertion](http://bclary.com/2004/11/07/#a-7.9.1).
+Always include semi-colons, don't rely on Javscript's [automatic semi-colon insertion](http://bclary.com/2004/11/07/#a-7.9.1) rules.
 
 ## Line Length
 
@@ -77,3 +111,79 @@ var piggyBank = new MoneyMaker(1000);
 piggyBank.addMoney(1);
 ```
 
+## Equality Operators
+
+Use `===` and `!==` instead of `==` and `!=` to avoid type coercion.
+
+```javascript
+var same = (a === b);
+```
+
+## Ternary Operator
+
+Use ternary operator to conditionally assign a value, not as a shortcut for an if statement.
+
+```javascript
+var val = (a > b) ? b : a;
+```
+
+## Compound Statements
+
+Opening braces should be at the end of the line that begins the compound statement. Braces should be used around all statements even one-liners. Variables should not be declared in the initialization section of a for statement.
+
+```javascript
+if (true) {
+    // ...
+}
+
+if (true) {
+    // ...
+} else {
+    // ...
+}
+
+var i,
+    len;
+
+for (i = 0, len = 10; i < 10; i++) {
+    // ...
+}
+
+var prop;
+
+for (prop in someObject) {
+    // ...
+}
+
+while (condition) {
+    // ..
+}
+
+do {
+    // ...
+} while (value);
+
+switch (true) {
+    case 1:
+        /* fall through */
+    case 2:
+        fn();
+        break;
+    default:
+        return undefined;
+}
+
+try {
+    // ...
+} catch (e) {
+    // ...
+} finally {
+    // ...
+}
+```
+
+## White Space
+
+```javascript
+// ...
+```
