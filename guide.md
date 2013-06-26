@@ -1,234 +1,77 @@
-# Guide
+# Javascript style guide
 
-* [Style](#style)
-    * [Whitespace](#whitespace)
-    * [Naming](#naming)
-    * [Syntax](#syntax)
-* [Best Practices](#best-practices)
-    * [Code quality](#code-quality)
-    * [Variables](#variables)
-    * [Modules](#modules)
+## Indentation
 
----
+Indent with 4 spaces, do not mix spaces and tabs.
 
-## Style
+## Statement Termination
 
-### Whitespace
+Always include semi-colons, don't rely on Javscript's [automatic semi-colon insertion](http://bclary.com/2004/11/07/#a-7.9.1).
 
-* indent with 4 spaces, no tabs
-* never mix spaces and tabs
+## Line Length
 
-Blank lines
-
-* between functions & methods
-* between local variables in a method and it's first statement
-* before controls statements (if, for, while)
-* before a comment
+Limit line length to 80 characters, for lines greater than 80 characters break after an operator and double indent the next line unless doing an assignment.
 
 ```javascript
+if (isLongPoorlyNamedFunctionReturningBoolean() && !isGiraffe() && !isFishy() ||
+        isBriney() && isFishy()) {
+    fooWithFeeling();
+}
 
-function foo () {
-    var i,
-        len = 10,
-        localA = true;
+// exception when doing assignment
+var UI_MESSAGE = stringBegin + option[1] + option[3] + stringMiddle +
+                 stringEnder;
+```
 
-    for (; i < len; i++) {
-        alert(len);
+## Blank Lines
 
-        if (localA) {
-            alert(len + ':' + localA);
+Use blank lines to separate related lines of code from unrelated lines of code. It's a good idea to add blank lines: 
 
-            if (!localA) {
-                alert('m(...)m');
+* before control statements
+* between methods
+* between the local variables in a method and the first statement
+* before a comment
+* between logical sections inside a method to improve readability
+
+```javascript
+var len,
+    p,
+    i = 0;
+    
+if (1 && !0) {
+
+    for (len = items.length; i < l; ++i) {
+        p = items[i];
+
+        if (p.nodeType === 1) {
+
+            if (p.nodeName === 'A') {
+                p.href = '#';
+            } else {
+
+                // kill the child
+                p.parentNode.removeChild(p);
             }
         }
     }
 }
 ```
 
-Put comments above, not at end.
+## Naming
 
-``` javascript
-// comment above
-money();
-```
-
-### Naming
-
-Constructor functions should be pascal case, regular function and variable names should be camel case. Variable names should begin with a noun, function names should begin with a verb.
+Use camel case for variables and regular functions, pascal case for constructors and all caps to indicate a constant. Variables and constructors should begin with a noun and regular functions should begin with a verb.
 
 ```javascript
-// ...
-```
+function MoneyMaker(amount) {
+    var UI_UNIT = 'dollars';
 
-### Syntax
-
-Parenthesis, Braces and Line-breaks.
-
-if, else, for while and try block always have spaces, braces and span multiple lines. Place opening parenthesis on same line. Always include semi-colons.
-
-```javascript
-
-// BAD
-if (true) execute();
-while (condition) iterate();
-for (var i = 0; i < array.length; i++) process(a[i]);
-
-// GOOD
-if (true) {
-    // ...
-}
-
-for (var i = 0, len = array.length; len < i; i++) {
-    // ...
-}
-
-// better
-var i = 0,
-    len = array.length;
-
-for (; i < len; i++) {
-    // ...
-}
-```
-
-Functions (Expression, Named, Constructor)
-
-```javascript
-var foo = function (arg) {
-    // ...
-};
-foo('arg');
-
-function bar(arg) {
-    // ...
-}
-bar('arg');
-
-var foobar;
-
-function FooBar(options) {
-    this.options = options || {};
-}
-foobar = new FooBar({a: 'alpha'});
-
-foobar.options;
-// {a: 'alpha'}
-```
----
-
-## Best practices
-
-### Code quality
-
-Use strict mode for new code and make sure your code passes [JsHint](http://www.jshint.com/), if it doesn't pass, and you must go against a hint, add the appropriate [JsHint option](http://jshint.com/docs/#enforcing_options) to make it pass.
-
-```javascript
-// tell JsHint jQuery is a valid global variable
-/*global jQuery*/
-(function ($) {
-    'use strict';
-    var module = {
-        prop: false
+    this.money = amount || 1;
+    this.addMoney = function (amount) {
+        return this.money += amount;
     };
+}
 
-    function toggleProp() {
-        /*jshint validthis: true*/
-
-        // tell jshint to ignore 'possible this strict mode violation'
-        this.prop = !!this.prop;
-    }
-
-    toggleProp.apply(module);
-}(jQuery));
+var piggyBank = new MoneyMaker(1000);
+piggyBank.addMoney(1);
 ```
 
-### Variables
-
-Use a single `var` statement at the beginning of the scope.
-
-```javascript
-(function () {
-    var count,
-        foo = null,
-        hasQSA = (function() {
-            return 'querySelectorAll' in document;
-        }());
-
-
-    function bar () {
-        if (foo === null) {
-            explode();
-        }
-    }
-}());
-```
-
-### Modules
-
-#### Standalone module
-
-```javascript
-(function (document, undefined) {
-    'use strict';
-    var private = true,
-        danceparty = document.getElementById('danceparty');
-
-    danceparty.className = 'dance-time';
-}(document));
-```
-
-#### Augment existing name space or module
-
-```javascript
-window.NameSpace = (function (document, NameSpace) {
-    'use strict';
-
-    // setup
-    var privateCount = 0;
-
-    // public api
-    NameSpace.counter = {
-        count: function () {
-            return privateCount;
-        },
-
-        increment: function () {
-            return ++privateCount;
-        },
-
-        decrement: function () {
-            return --privateCount;
-        }
-    };
-    return NameSpace;
-}(document, window.NameSpace || {}));
-```
-
-#### Making a module testable
-
-We use QUnit, so if QUnit is defined expose normally private methods for testing and optionally don't run our normal initialization method.
-
-```javascript
-window.theModule = (function (document, theModule, QUnit, undefined) {
-    'use strict';
-    var initialize = function () {
-        // initialize
-    };
-
-    theModule.publicMethod = function () {
-        //...
-    };
-
-    if (!QUnit) {
-        // initialize as normal if no QUnit
-        initialize();
-    } else {
-        // expose normally private functions for testing if needed
-        theModule.helper = helper;
-        theModule.initialize = initialize;
-    }
-
-    return theModule;
-}(document, window.theModule || {}, QUnit));
-```
