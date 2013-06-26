@@ -1,5 +1,7 @@
 # Javascript style guide
 
+This guide borrows heavily from around the net and Nicholas Zakas' book [Maintainable Javascript](http://www.amazon.com/Maintainable-JavaScript-ebook/dp/B0082CXEB0).
+
 ## Indentation
 
 Indent with 4 spaces, do not mix spaces and tabs.
