@@ -3,7 +3,7 @@
 Start of a JS Style and Best Practices Guide.
 
 ## References
-* Book [Maintainable Javascript](http://www.amazon.com/Maintainable-JavaScript-ebook/dp/B0082CXEB0) by Nicholas Zakas
+* [Maintainable Javascript](http://www.amazon.com/Maintainable-JavaScript-ebook/dp/B0082CXEB0) Book by Nicholas Zakas
 * [Idiomatic Javascript](https://github.com/rwldrn/idiomatic.js)
 * [jQuery JavaScript Style Guide](http://contribute.jquery.org/style-guide/js/)
 * [dojo Style Guide](http://dojotoolkit.org/community/styleGuide)
