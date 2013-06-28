@@ -206,7 +206,7 @@ try {
 }(document));
 ```
 
-## Augment existing name space or module
+## Augment module
 
 ```javascript
 window.NameSpace = (function (document, NameSpace) {
