@@ -12,6 +12,10 @@ This guide borrows heavily from around the net and Nicholas Zakas' book [Maintai
 * [Ternary Operator](#ternary-operator)
 * [Compound Statements](#compound-statements)
 * [White Space](#white-space)
+* [Best Practices](#best-practices)
+    * [Standalone module](#standalone-module)
+    * [Augment module](#augment-module)
+    * [Making a module testable](#making-a-module-testable)
 
 ## Code Quality
 
@@ -186,4 +190,73 @@ try {
 
 ```javascript
 // ...
+```
+
+## Best Practices
+
+## Standalone module
+
+```javascript
+(function (document, undefined) {
+    'use strict';
+    var private = true,
+        danceparty = document.getElementById('danceparty');
+
+    danceparty.className = 'dance-time';
+}(document));
+```
+
+## Augment existing name space or module
+
+```javascript
+window.NameSpace = (function (document, NameSpace) {
+    'use strict';
+
+    // setup
+    var privateCount = 0;
+
+    // public api
+    NameSpace.counter = {
+        count: function () {
+            return privateCount;
+        },
+
+        increment: function () {
+            return ++privateCount;
+        },
+
+        decrement: function () {
+            return --privateCount;
+        }
+    };
+    return NameSpace;
+}(document, window.NameSpace || {}));
+```
+
+## Making a module testable
+
+We use QUnit, so if QUnit is defined expose normally private methods for testing and optionally don't run our normal initialization method.
+
+```javascript
+window.theModule = (function (document, theModule, QUnit, undefined) {
+    'use strict';
+    var initialize = function () {
+        // initialize
+    };
+
+    theModule.publicMethod = function () {
+        //...
+    };
+
+    if (!QUnit) {
+        // initialize as normal if no QUnit
+        initialize();
+    } else {
+        // expose normally private functions for testing if needed
+        theModule.helper = helper;
+        theModule.initialize = initialize;
+    }
+
+    return theModule;
+}(document, window.theModule || {}, QUnit));
 ```
