@@ -19,21 +19,19 @@ This guide borrows heavily from around the net and Nicholas Zakas' book [Maintai
 
 ## Code Quality
 
-Use strict mode for all new code and make sure it passes [JsHint](http://jshint.com/). If you must include code that doesn't pass the JsHint check add a [directive](http://jshint.com/docs/#directives) to make it pass.
+* use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode) for all new code.
+* make sure you code passes [JsHint](http://jshint.com/). If you must include code that doesn't pass the JsHint check add a [directive](http://jshint.com/docs/#directives) to make it pass.
 
 ```javascript
-// tell JsHint jQuery is a valid global variable
-/*global jQuery*/
+/*global jQuery*/ // jshint option: to declare jQuery a valid global
 (function ($) {
-    'use strict';
+    'use strict'; // turn on strict mode
     var module = {
         prop: false
     };
 
     function toggleProp() {
-        /*jshint validthis: true*/
-
-        // tell jshint to ignore 'possible this strict mode violation'
+        /*jshint validthis: true*/ // jshint option: ignore 'possible strict mode violation'
         this.prop = !this.prop;
     }
 
