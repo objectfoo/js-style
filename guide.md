@@ -13,9 +13,11 @@ This guide borrows heavily from around the net and Nicholas Zakas' book [Maintai
 * [Compound Statements](#compound-statements)
 * [White Space](#white-space)
 * [Best Practices](#best-practices)
-    * [Standalone module](#standalone-module)
-    * [Augment module](#augment-module)
-    * [Making a module testable](#making-a-module-testable)
+    * [Modules](#modules)
+        * [Standalone module](#standalone-module)
+        * [Augmenting a module](#augmenting-a-module)
+        * [Making a module testable](#making-a-module-testable)
+    * [Declaring Variables](#declaring-variables)
 
 ## Code Quality
 
@@ -51,12 +53,13 @@ Always include semi-colons, don't rely on Javscript's [automatic semi-colon inse
 Limit line length to 80 characters, for lines greater than 80 characters break after an operator and double indent the next line unless doing an assignment.
 
 ```javascript
+// double indent wrapped lines
 if (isLongPoorlyNamedFunctionReturningBoolean() && !isGiraffe() && !isFishy() ||
         isBriney() && isFishy()) {
     fooWithFeeling();
 }
 
-// exception when doing assignment
+// exception: when doing assignment
 var UI_MESSAGE = stringBegin + option[1] + option[3] + stringMiddle +
                  stringEnder;
 ```
@@ -134,36 +137,21 @@ var val = (a > b) ? b : a;
 Opening braces should be at the end of the line that begins the compound statement. Braces should be used around all statements even one-liners. Variables should not be declared in the initialization section of a for statement.
 
 ```javascript
+// put opening brace on same line as statement
 if (true) {
     // ...
 }
 
-if (true) {
-    // ...
-} else {
-    // ...
-}
-
-var i,
-    len;
-
-for (i = 0, len = 10; i < 10; i++) {
-    // ...
-}
-
-var prop;
-
-for (prop in someObject) {
-    // ...
-}
 
 while (condition) {
     // ..
 }
 
+
 do {
     // ...
 } while (value);
+
 
 switch (true) {
     case 1:
@@ -175,6 +163,7 @@ switch (true) {
         return undefined;
 }
 
+
 try {
     // ...
 } catch (e) {
@@ -182,38 +171,70 @@ try {
 } finally {
     // ...
 }
+
+
+// define loop variables at the beginning of scope
+var i,
+    len;
+
+for (i = 0, len = 10; i < 10; i++) {
+    // ...
+}
+
+
+var prop;
+
+for (prop in someObject) {
+    // ...
+}
 ```
 
 ## White Space
 
+Blank lines improve readability by setting off sections of code that are logically related.
+
+Always put a blank line
+
+* between methods
+* between local variables and the next statement
+* before comments
+* before control statements e.g. if, for, while etc.
+
 ```javascript
-// ...
+
 ```
 
 ## Best Practices
 
-## Standalone module
+### Module Patterns
+
+#### Standalone module
+
+If you don't need to export any functionality wrap it in an [Immediately-Invoked Function Expression](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) to prevent variable name collisions and keep the global namespace clean. Always try to use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode).
 
 ```javascript
-(function (document, undefined) {
+(function () {
     'use strict';
     var private = true,
         danceparty = document.getElementById('danceparty');
 
     danceparty.className = 'dance-time';
-}(document));
+}());
 ```
 
-## Augment module
+#### Augmenting a module
+
+If you need to add functionality to an existing global namespace/module, explicitly set it as a property on the window object.
 
 ```javascript
-window.NameSpace = (function (document, NameSpace) {
+// explicitly assign your module to window property
+window.NameSpace = (function (NameSpace) {
     'use strict';
 
     // setup
     var privateCount = 0;
 
-    // public api
+    // Add a counter sub-module to object
     NameSpace.counter = {
         count: function () {
             return privateCount;
@@ -227,34 +248,61 @@ window.NameSpace = (function (document, NameSpace) {
             return --privateCount;
         }
     };
-    return NameSpace;
-}(document, window.NameSpace || {}));
+
+    return NameSpace; // return augmented object
+}(window.NameSpace || {})); // if namespace object isn't defined yet create it
 ```
 
-## Making a module testable
+#### Making a module testable
 
-We use QUnit, so if QUnit is defined expose normally private methods for testing and optionally don't run our normal initialization method.
+We use QUnit, so if QUnit is globally globally expose normally private methods for testing and optionally don't run our normal initialization method.
 
 ```javascript
-window.theModule = (function (document, theModule, QUnit, undefined) {
+window.myModule = (function (document, myModule, undefined) {
     'use strict';
     var initialize = function () {
         // initialize
     };
 
-    theModule.publicMethod = function () {
+    myModule.publicMethod = function () {
         //...
     };
 
-    if (!QUnit) {
+    if (!window.QUnit) {
         // initialize as normal if no QUnit
         initialize();
     } else {
         // expose normally private functions for testing if needed
-        theModule.helper = helper;
-        theModule.initialize = initialize;
+        QUnit.myModule.helper = helper;
+        QUnit.myModule.initialize = initialize;
     }
 
-    return theModule;
-}(document, window.theModule || {}, QUnit));
+    return myModule;
+}(document, window.myModule || {}));
+```
+
+### Declaring variables
+
+Declare variables at the beginning of their scope in a single statement. Declaring variables in a single statement performs faster than spreading them around and they are easier to find.
+
+```javascript
+(function (){
+    // declare module wide variables at the beginning of module scope in a single statement
+    var moduleA = 4
+        moduleB = 5;
+
+    function aFunc (msg) {
+        // declare local variables at the beginning of function scope
+        var standardGreeting = 'Hello';
+
+        if (!!msg) {
+            return standardGreeting + ' A: ' + moduleA;
+        } else {
+            return msg + 'B: ' + moduleB;
+        }
+    }
+
+    alert aFunc();
+    alert aFunc('ohai!');
+}())
 ```
