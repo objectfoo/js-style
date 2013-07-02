@@ -13,9 +13,9 @@ This guide borrows heavily from around the net and Nicholas Zakas' book [Maintai
 * [Compound Statements](#compound-statements)
 * [White Space](#white-space)
 * [Best Practices](#best-practices)
-    * [Modules](#modules)
-        * [Standalone module](#standalone-module)
-        * [Augmenting a module](#augmenting-a-module)
+    * [Module Patterns](#module-patterns)
+        * [Private module](#private-module)
+        * [Module with Public API](#module-with-public-api)
         * [Making a module testable](#making-a-module-testable)
     * [Declaring Variables](#declaring-variables)
 
@@ -210,8 +210,8 @@ Always put a blank line
                 while (--b) {
                     a = b;
 
-                    // HACK: ...
-                    b == a;
+                    // HACK: nonsense
+                    b = a;
                 }
             }
         }
@@ -227,27 +227,29 @@ Always put a blank line
 
 ### Module Patterns
 
-#### Standalone module
+#### Private Module
 
 If you don't need to export any functionality wrap it in an [Immediately-Invoked Function Expression](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) to prevent variable name collisions and keep the global namespace clean. Always try to use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode).
 
 ```javascript
 (function () {
     'use strict';
-    var private = true,
+    var privateVar = true,
         danceparty = document.getElementById('danceparty');
 
-    danceparty.className = 'dance-time';
+    if (privateVar) {
+        danceparty.className = 'dance-time';
+    }
 }());
 ```
 
-#### Augmenting a module
+#### Module with Public API
 
-If you need to add functionality to an existing global namespace/module, explicitly set it as a property on the window object.
+If you need to add functionality to an existing global namespace/module.
 
 ```javascript
-// explicitly assign your module to window property
-window.NameSpace = (function (NameSpace) {
+// explicitly assign your module to window property,jhjh
+var NameSpace = (function (NameSpace) {
     'use strict';
 
     // setup
@@ -269,7 +271,7 @@ window.NameSpace = (function (NameSpace) {
     };
 
     return NameSpace; // return augmented object
-}(window.NameSpace || {})); // if namespace object isn't defined yet create it
+}(NameSpace || {})); // if namespace object isn't defined yet create it
 ```
 
 #### Making a module testable
@@ -277,7 +279,7 @@ window.NameSpace = (function (NameSpace) {
 We use QUnit, so if QUnit is globally globally expose normally private methods for testing and optionally don't run our normal initialization method.
 
 ```javascript
-window.myModule = (function (document, myModule) {
+var myModule = (function (myModule) {
     'use strict';
     var initialize = function () {
         // initialize
@@ -292,12 +294,11 @@ window.myModule = (function (document, myModule) {
         initialize();
     } else {
         // expose normally private functions for testing if needed
-        myModule.helper = helper;
         myModule.initialize = initialize;
     }
 
     return myModule;
-}(document, window.myModule || {}));
+}(myModule || {}));
 ```
 
 ### Declaring variables
@@ -306,8 +307,9 @@ Declare variables at the beginning of their scope in a single statement. Declari
 
 ```javascript
 (function (){
+    'use strict';
     // declare module wide variables at the beginning of module scope in a single statement
-    var moduleA = 4
+    var moduleA = 4,
         moduleB = 5;
 
     function aFunc (msg) {
@@ -321,7 +323,7 @@ Declare variables at the beginning of their scope in a single statement. Declari
         }
     }
 
-    alert aFunc(); // Hello A: 4
-    alert aFunc('ohai!'); // ohai! B: 5
-}())
+    alert(aFunc()); // Hello A: 4
+    alert(aFunc('ohai!')); // ohai! B: 5
+}());
 ```
