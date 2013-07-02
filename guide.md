@@ -142,16 +142,13 @@ if (true) {
     // ...
 }
 
-
 while (condition) {
     // ..
 }
 
-
 do {
     // ...
 } while (value);
-
 
 switch (true) {
     case 1:
@@ -162,7 +159,6 @@ switch (true) {
     default:
         return undefined;
 }
-
 
 try {
     // ...
@@ -180,7 +176,6 @@ var i,
 for (i = 0, len = 10; i < 10; i++) {
     // ...
 }
-
 
 var prop;
 
@@ -258,7 +253,7 @@ window.NameSpace = (function (NameSpace) {
 We use QUnit, so if QUnit is globally globally expose normally private methods for testing and optionally don't run our normal initialization method.
 
 ```javascript
-window.myModule = (function (document, myModule, undefined) {
+window.myModule = (function (document, myModule) {
     'use strict';
     var initialize = function () {
         // initialize
@@ -273,8 +268,8 @@ window.myModule = (function (document, myModule, undefined) {
         initialize();
     } else {
         // expose normally private functions for testing if needed
-        QUnit.myModule.helper = helper;
-        QUnit.myModule.initialize = initialize;
+        myModule.helper = helper;
+        myModule.initialize = initialize;
     }
 
     return myModule;
@@ -302,7 +297,7 @@ Declare variables at the beginning of their scope in a single statement. Declari
         }
     }
 
-    alert aFunc();
-    alert aFunc('ohai!');
+    alert aFunc(); // Hello A: 4
+    alert aFunc('ohai!'); // ohai! B: 5
 }())
 ```
