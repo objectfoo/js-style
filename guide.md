@@ -196,7 +196,31 @@ Always put a blank line
 * before control statements e.g. if, for, while etc.
 
 ```javascript
+(function() {
+    'use strict';
+    var a,
+        b = 10;
+    
+    function theFunction() {
 
+        if (true) {
+
+            if (!!0) {
+
+                while (--b) {
+                    a = b;
+
+                    // HACK: ...
+                    b == a;
+                }
+            }
+        }
+    }
+
+    function aFunction() {
+        // ...
+    }
+}());
 ```
 
 ## Best Practices
