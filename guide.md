@@ -38,7 +38,7 @@ This guide borrows heavily from around the net and Nicholas Zakas' book [Maintai
     }
 
     toggleProp.apply(module);
-}(jQuery));
+})(jQuery);
 ```
 ## Indentation
 
@@ -220,7 +220,7 @@ Always put a blank line
     function aFunction() {
         // ...
     }
-}());
+})();
 ```
 
 ## Best Practices
@@ -240,7 +240,7 @@ If you don't need to export any functionality wrap it in an [Immediately-Invoked
     if (privateVar) {
         danceparty.className = 'dance-time';
     }
-}());
+})();
 ```
 
 #### Module with Public API
@@ -271,7 +271,7 @@ var NameSpace = (function (NameSpace) {
     };
 
     return NameSpace; // return augmented object
-}(NameSpace || {})); // if namespace object isn't defined yet create it
+})(NameSpace || {}); // if namespace object isn't defined yet create it
 ```
 
 #### Making a module testable
@@ -298,7 +298,7 @@ var myModule = (function (myModule) {
     }
 
     return myModule;
-}(myModule || {}));
+})(myModule || {});
 ```
 
 ### Declaring variables
@@ -325,5 +325,5 @@ Declare variables at the beginning of their scope in a single statement. Declari
 
     alert(aFunc()); // Hello A: 4
     alert(aFunc('ohai!')); // ohai! B: 5
-}());
+})();
 ```
