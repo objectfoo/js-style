@@ -66,7 +66,7 @@ var UI_MESSAGE = stringBegin + option[1] + option[3] + stringMiddle +
 
 ## Blank Lines
 
-Use blank lines to separate related lines of code from unrelated lines of code. It's a good idea to add blank lines: 
+Use blank lines to separate related lines of code from unrelated lines of code. It's a good idea to add blank lines:
 
 * before control statements
 * between methods
@@ -78,7 +78,7 @@ Use blank lines to separate related lines of code from unrelated lines of code. 
 var len,
     p,
     i = 0;
-    
+
 if (1 && !0) {
 
     for (len = items.length; i < l; ++i) {
@@ -200,7 +200,7 @@ Always put a blank line
     'use strict';
     var a,
         b = 10;
-    
+
     function theFunction() {
 
         if (true) {
@@ -276,7 +276,7 @@ var NameSpace = (function (NameSpace) {
 
 #### Making a module testable
 
-We use QUnit, so if QUnit is globally globally expose normally private methods for testing and optionally don't run our normal initialization method.
+We use QUnit, so if QUnit is on the window, expose your normally private methods for testing. Optionally don't run our normal initialization method.
 
 ```javascript
 var myModule = (function (myModule) {
