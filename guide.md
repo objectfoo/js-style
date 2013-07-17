@@ -303,7 +303,7 @@ var myModule = (function (myModule) {
 
 ### Declaring variables
 
-Declare variables at the beginning of their scope in a single statement. Declaring variables in a single statement performs faster than spreading them around and they are easier to find.
+Declare variables at the beginning of their scope in a single statement. Declaring variables in a single statement performs faster than spreading them around, makes them easier to find and reduces [hoisting](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting) errors.
 
 ```javascript
 (function (){
