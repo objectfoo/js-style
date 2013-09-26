@@ -42,7 +42,7 @@ This guide borrows heavily from around the net and Nicholas Zakas' book [Maintai
 ```
 ## Indentation
 
-Indent with 4 spaces, do not mix spaces and tabs.
+Indent a tab, do not mix spaces and tabs.
 
 ## Statement Termination
 
