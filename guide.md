@@ -104,8 +104,6 @@ Use camel case for variables and regular functions, pascal case for constructors
 
 ```javascript
 function MoneyMaker(amount) {
-    var UI_UNIT = 'dollars';
-
     this.money = amount || 1;
     this.addMoney = function (amount) {
         return this.money += amount;
